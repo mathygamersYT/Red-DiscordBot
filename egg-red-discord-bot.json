@@ -1,0 +1,68 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PANEL",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2024-05-22T00:00:00+00:00",
+    "name": "Red Discord Bot",
+    "author": "support@cog-creators.com",
+    "description": "Red is a fully modular bot – meaning all features and commands can be enabled/disabled to your liking, making it completely customizable.",
+    "features": null,
+    "docker_images": {
+        "ghcr.io/cog-creators/red-discordbot:latest": "ghcr.io/cog-creators/red-discordbot:latest"
+    },
+    "file_denylist": [],
+    "startup": "/bin/bash /entrypoint.sh",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Red is fully loaded\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\r\n# Red Discord Bot Installation Script\r\n\r\napt-get update\r\napt-get install -y git python3 python3-pip python3-venv build-essential openjdk-17-jre-headless wget\r\n\r\ncd /mnt/server\r\n\r\n# Create virtual environment if it doesn't exist\r\n# Note: Pterodactyl usually runs the install script as root in a separate container\r\n# We want to install dependencies that will be available to the user\r\n\r\n# However, for Red, it's best to install in the user space or global if it's a dedicated container\r\n# Since the Dockerfile we made installs dependencies globally or in the user path, we can just pip install here\r\n\r\nif [ -f \"requirements.txt\" ]; then\r\n    pip3 install -U -r requirements.txt\r\nelse\r\n    pip3 install -U Red-DiscordBot\r\nfi\r\n\r\n# Ensure entrypoint exists if not provided by image (though our image has it)\r\nif [ ! -f \"entrypoint.sh\" ]; then\r\n    wget -O entrypoint.sh https://raw.githubusercontent.com/Cog-Creators/Red-DiscordBot/V3/develop/entrypoint.sh || echo \"Could not download entrypoint.sh, assuming it is in the image\"\r\nfi\r\n",
+            "container": "python:3.11-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Bot Token",
+            "description": "The token for your Discord bot.",
+            "env_variable": "RED_TOKEN",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:100"
+        },
+        {
+            "name": "Prefix",
+            "description": "The prefix for the bot commands.",
+            "env_variable": "PREFIX",
+            "default_value": "!",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:10"
+        },
+        {
+            "name": "Instance Name",
+            "description": "The name of the bot instance.",
+            "env_variable": "INSTANCE_NAME",
+            "default_value": "red",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|alpha_dash|max:20"
+        },
+        {
+            "name": "Owner ID",
+            "description": "The Discord ID of the bot owner.",
+            "env_variable": "OWNER_ID",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20"
+        }
+    ]
+}
