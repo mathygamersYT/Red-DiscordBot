@@ -1,45 +1,41 @@
-FROM python:3.11-slim
+FROM python:3.11-bookworm
 
-LABEL maintainer="mathygamersYT"
-LABEL description="Red-DiscordBot para Pelican Panel"
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    PYTHONUNBUFFERED=1
+LABEL author="MathyGamers" maintainer="MathyGamers"
 
-# Actualizar e instalar dependencias básicas
+
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-        git \
-        build-essential \
-        wget \
-        curl \
-        procps && \
-    apt-get clean && \
+
+    apt-get install -y --no-install-recommends \
+
+    git \
+
+    build-essential \
+
+    default-jre-headless \
+
+    wget \
+
+    procps && \
+
     rm -rf /var/lib/apt/lists/*
 
-# Instalar Java 17 para Lavalink
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jre-headless && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
-# Verificar Java
-RUN java -version
+RUN pip install --no-cache-dir Red-DiscordBot
 
-# Instalar Red-DiscordBot
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir Red-DiscordBot
 
-# Crear directorios
-RUN mkdir -p /home/container/data && \
-    chmod -R 755 /home/container
+RUN chmod -R a+rx /usr/local/lib/python3.11/site-packages
 
-# Script de inicio simple
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
-WORKDIR /home/container
-EXPOSE 2333
+ENV PATH="/home/container/.local/bin:${PATH}"
 
-ENTRYPOINT ["/entrypoint.sh"]
+WORKDIR /app
+
+COPY . .
+
+RUN chmod +x entrypoint.sh
+
+
+USER 1000:1000
+
+CMD ["/bin/bash", "entrypoint.sh"]
