@@ -2,13 +2,15 @@ FROM python:3.11-bookworm
 
 LABEL author="MathyGamers" maintainer="MathyGamers"
 
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
     build-essential \
     default-jre-headless \
     wget \
-    procps && \
+    procps \
+    ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir Red-DiscordBot
