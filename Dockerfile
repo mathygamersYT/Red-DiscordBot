@@ -2,7 +2,7 @@ FROM python:3.11-bookworm
 
 LABEL author="MathyGamers" maintainer="MathyGamers"
 
-# Instalamos las dependencias del sistema (Java, git, etc.)
+# 1. Instalamos herramientas del sistema
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
@@ -12,16 +12,16 @@ RUN apt-get update && \
     procps && \
     rm -rf /var/lib/apt/lists/*
 
-# --- LA SOLUCIÓN MÁGICA ESTÁ AQUÍ ABAJO ---
-# Le decimos a Linux que busque ejecutables en la carpeta del usuario
-ENV PATH="/home/container/.local/bin:${PATH}"
+# 2. INSTALAMOS REDBOT AQUÍ DIRECTAMENTE (La Solución Definitiva)
+# Esto asegura que el bot exista siempre en el sistema global (/usr/local/bin)
+RUN pip install --no-cache-dir Red-DiscordBot
 
+# 3. Configuramos rutas y permisos
+ENV PATH="/home/container/.local/bin:${PATH}"
 WORKDIR /app
 COPY . .
-
-# Permisos
 RUN chmod +x entrypoint.sh
 
-# Usuario
+# 4. Usuario final
 USER 1000:1000
 CMD ["/bin/bash", "entrypoint.sh"]
