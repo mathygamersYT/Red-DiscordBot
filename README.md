@@ -103,7 +103,7 @@ Navigate to the server creation section and complete the **"Information"** tab:
 | Field | Recommended Value | Notes |
 | :--- | :--- | :--- |
 | **Name** | `MyRedBot` | Your preferred server name. |
-| **Node** | `BOTS` | (Based on your host configuration). |
+| **Node** | `YourNode` | (Based on your host configuration). |
 | **Primary Allocation** | `0.0.0.0:2333` | **Essential:** Map the server to port `2333`, which is the standard Lavalink port. |
 
 **Resource Recommendations:**
@@ -120,7 +120,7 @@ Navigate to the **"Environment Configuration"** tab. By setting these variables,
 | **Instance Name** (`INSTANCE_NAME`) | `red` | Internal name for the Red-Bot instance. |
 | **Owner ID** (`OWNER_ID`) | `YOUR_DISCORD_USER_ID` | Your Discord user ID for superuser permissions (**mandatory**). |
 | **Prefix** (`PREFIX`) | `!` | The command prefix you wish to use. |
-| **Lavalink Host** (`LAVALINK_HOST`) | **Leave Blank** | **Key:** Leaving this empty tells Red-Bot to use its own local instance (`localhost`), ignoring problematic external IPs. |
+| **Lavalink Host** (`LAVALINK_HOST`) | **localhost** | **Key:** Leaving this empty tells Red-Bot to use its own local instance (`localhost`), ignoring problematic external IPs. |
 | **Lavalink Port** (`LAVALINK_PORT`) | `2333` | **Key:** Forces Red-Bot to look for the service on the correct port. |
 | **Lavalink Password** (`LAVALINK_PASSWORD`) | `youshallnotpass` | The standard Lavalink default password. |
 
