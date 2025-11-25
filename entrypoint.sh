@@ -1,4 +1,7 @@
 #!/bin/bash
+# --- ESTA ES LA LÍNEA MÁGICA QUE FALTA ---
+export PATH=$PATH:/home/container/.local/bin
+
 cd /home/container
 
 # Make internal docker spinup wait until processes are correctly started
@@ -26,23 +29,12 @@ fi
 if ! redbot-setup --list | grep -q "$INSTANCE_NAME"; then
     echo "Setting up instance $INSTANCE_NAME..."
     # Non-interactive setup
-    # We need to determine data path. Pterodactyl usually mounts /home/container as the persistent storage.
-    # Red's default data path is usually in a platform specific location, but we can force it.
-    
-    # However, redbot-setup --no-prompt requires --instance-name, --data-path (optional but good to be explicit)
-    # and --backend (default json).
-    
-    # Let's try to set it up in /home/container/data
     mkdir -p /home/container/data
     
     redbot-setup --no-prompt --instance-name "$INSTANCE_NAME" --data-path "/home/container/data" --backend json
 fi
 
-# If token and prefix are provided via env vars, we might need to set them if not already set
-# But Red reads from config. 
-# If this is the first run, we can pass them to redbot command if supported, or rely on the user to set them via config.
-# Wait, redbot command supports --token and --prefix flags.
-
+# Construct arguments
 CMD_ARGS=""
 if [ -n "$RED_TOKEN" ]; then
     CMD_ARGS="$CMD_ARGS --token $RED_TOKEN"
