@@ -28,6 +28,7 @@ RUN chmod -R a+rx /usr/local/lib/python3.11/site-packages
 
 
 ENV PATH="/home/container/.local/bin:${PATH}"
+ENV JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true"
 
 WORKDIR /app
 

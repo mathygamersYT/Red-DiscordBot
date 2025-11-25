@@ -31,3 +31,13 @@ I have modified the Red-DiscordBot Pterodactyl setup to support external Lavalin
       [p]audioset lavalink password <LAVALINK_PASSWORD>
       ```
     - *Note: If you are using a custom startup cog, you can program it to read `os.environ['LAVALINK_HOST']` etc.*
+
+## Troubleshooting
+
+### Internal Lavalink Connection Failed
+If you see errors like `Connecting to the Lavalink node failed after multiple attempts`, it might be due to Java binding to IPv6 while Red tries IPv4 (or vice versa).
+- **Fix**: The Dockerfile now includes `ENV JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true"` to force IPv4. Rebuild the container to apply this.
+
+### Memory Issues
+Red-DiscordBot might try to allocate too much memory for Lavalink (e.g., `-Xmx15G`) if the container limits are not visible to Java.
+- **Fix**: If the bot crashes or Lavalink fails to start, consider setting a memory limit in the Pterodactyl panel or passing `_JAVA_OPTIONS="-Xmx1G"` (or appropriate size) in the environment variables.
