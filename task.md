@@ -10,3 +10,5 @@
 - [x] Documentation
     - [x] Update/Create README.md with Pelican Panel support info
     - [x] Mention Pterodactyl/Pelican Egg usage
+    - [x] Update Docker Image in Egg
+    - [x] Add Recommended Installation Guide to README

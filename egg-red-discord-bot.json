@@ -10,6 +10,7 @@
     "description": "Red is a fully modular bot – meaning all features and commands can be enabled/disabled to your liking, making it completely customizable.",
     "features": null,
     "docker_images": {
+        "ghcr.io/mathygamersyt/red-discordbot:latest": "ghcr.io/mathygamersyt/red-discordbot:latest",
         "ghcr.io/cog-creators/red-discordbot:latest": "ghcr.io/cog-creators/red-discordbot:latest"
     },
     "file_denylist": [],

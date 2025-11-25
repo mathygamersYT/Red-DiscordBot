@@ -92,24 +92,41 @@ community of cog repositories.**
 
 [Official Discord Server](https://discord.gg/red) and ask in the **#support** channel for help.
 
-# Pelican Panel Support
+## 🚀 Recommended Installation Guide: Red-Bot with Managed Lavalink (Pterodactyl/Pelican)
 
-This repository includes support for **Pelican Panel** (and Pterodactyl) via the included Egg file.
+This guide ensures Red-Bot and the Lavalink audio server communicate correctly within the same Docker container, resolving common port and host (`localhost` vs external IP) conflicts.
 
-**Features:**
-- **Custom Egg**: `egg-red-discord-bot.json` is ready to import into Pelican/Pterodactyl.
-- **External Lavalink**: (NOT WORKING YET) Native support for connecting to an external Lavalink node.
-  - Configure `Lavalink Host`, `Port`, and `Password` directly in the panel startup variables.
-  - These variables are optional; leave them empty to use the internal Lavalink.
-- **Internal Lavalink Fix**: The Dockerfile forces IPv4 usage (`-Djava.net.preferIPv4Stack=true`) to resolve common connection issues with the internal Lavalink node on some hosts.
+### 1. Server Preparation (Pterodactyl/Pelican Panel)
 
-**Setup:**
-1. Import `egg-red-discord-bot.json` to your panel.
-2. Create a server using this Egg.
-3. (Optional) Configure external Lavalink variables in the Startup tab.
-4. Enjoy!
+Navigate to the server creation section and complete the **"Information"** tab:
 
-For more details, check the `walkthrough.md` file.
+| Field | Recommended Value | Notes |
+| :--- | :--- | :--- |
+| **Name** | `MyRedBot` | Your preferred server name. |
+| **Node** | `BOTS` | (Based on your host configuration). |
+| **Primary Allocation** | `0.0.0.0:2333` | **Essential:** Map the server to port `2333`, which is the standard Lavalink port. |
+
+### 2. Environment Configuration (Crucial Step)
+
+Navigate to the **"Environment Configuration"** tab. By setting these variables, you instruct Red-Bot to launch and utilize its own local Lavalink instance.
+
+| Variable | Value | Explanation |
+| :--- | :--- | :--- |
+| **Bot Token** (`RED_TOKEN`) | `YOUR_DISCORD_BOT_TOKEN` | Your Discord bot's secret token (**mandatory**). |
+| **Instance Name** (`INSTANCE_NAME`) | `red` | Internal name for the Red-Bot instance. |
+| **Owner ID** (`OWNER_ID`) | `YOUR_DISCORD_USER_ID` | Your Discord user ID for superuser permissions (**mandatory**). |
+| **Prefix** (`PREFIX`) | `!` | The command prefix you wish to use. |
+| **Lavalink Host** (`LAVALINK_HOST`) | **Leave Blank** | **Key:** Leaving this empty tells Red-Bot to use its own local instance (`localhost`), ignoring problematic external IPs. |
+| **Lavalink Port** (`LAVALINK_PORT`) | `2333` | **Key:** Forces Red-Bot to look for the service on the correct port. |
+| **Lavalink Password** (`LAVALINK_PASSWORD`) | `youshallnotpass` | The standard Lavalink default password. |
+
+### 3. Port Conflict Troubleshooting (Verification Step)
+
+After installation, check the server console. If you see repeated `Failed connect attempt` errors, it means Lavalink may be attempting to bind to an incorrect port. 
+Upon successful connection, the console should show:
+
+> `Lavalink WS connecting to ws://localhost:2333...`
+> `Lavalink WS connected to ws://localhost:2333`
 
 # Plugins
 
