@@ -16,7 +16,7 @@
     "startup": "/bin/bash /entrypoint.sh",
     "config": {
         "files": "{}",
-        "startup": "{\r\n    \"done\": \"Red is fully loaded\"\r\n}",
+        "startup": "{\r\n    \"done\": \"Invite URL\"\r\n}",
         "logs": "{}",
         "stop": "^C"
     },
@@ -63,6 +63,33 @@
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:20"
+        },
+        {
+            "name": "Lavalink Host",
+            "description": "Hostname or IP of the external Lavalink node.",
+            "env_variable": "LAVALINK_HOST",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string"
+        },
+        {
+            "name": "Lavalink Port",
+            "description": "Port of the external Lavalink node.",
+            "env_variable": "LAVALINK_PORT",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|numeric"
+        },
+        {
+            "name": "Lavalink Password",
+            "description": "Password for the external Lavalink node.",
+            "env_variable": "LAVALINK_PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string"
         }
     ]
 }

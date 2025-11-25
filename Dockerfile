@@ -9,6 +9,7 @@ RUN apt-get update && \
     openjdk-17-jre-headless \
     wget \
     procps \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -d /home/container -m container
