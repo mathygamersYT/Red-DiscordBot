@@ -1,6 +1,6 @@
 # External Lavalink Compatibility Walkthrough
 
-I have modified the Red-DiscordBot Pterodactyl setup to support external Lavalink connections.
+This document details the modifications made to the Red-DiscordBot Pterodactyl setup to support external Lavalink connections.
 
 ## Changes Made
 
