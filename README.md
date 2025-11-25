@@ -90,8 +90,26 @@ community of cog repositories.**
 - [MacOS](https://docs.discord.red/en/stable/install_guides/mac.html)
 - [Most major linux distributions](https://docs.discord.red/en/stable/install_guides/index.html)
 
-If after reading the guide you are still experiencing issues, feel free to join the
 [Official Discord Server](https://discord.gg/red) and ask in the **#support** channel for help.
+
+# Pelican Panel Support
+
+This repository includes support for **Pelican Panel** (and Pterodactyl) via the included Egg file.
+
+**Features:**
+- **Custom Egg**: `egg-red-discord-bot.json` is ready to import into Pelican/Pterodactyl.
+- **External Lavalink**: (NOT WORKING YET) Native support for connecting to an external Lavalink node.
+  - Configure `Lavalink Host`, `Port`, and `Password` directly in the panel startup variables.
+  - These variables are optional; leave them empty to use the internal Lavalink.
+- **Internal Lavalink Fix**: The Dockerfile forces IPv4 usage (`-Djava.net.preferIPv4Stack=true`) to resolve common connection issues with the internal Lavalink node on some hosts.
+
+**Setup:**
+1. Import `egg-red-discord-bot.json` to your panel.
+2. Create a server using this Egg.
+3. (Optional) Configure external Lavalink variables in the Startup tab.
+4. Enjoy!
+
+For more details, check the `walkthrough.md` file.
 
 # Plugins
 
