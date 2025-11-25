@@ -48,6 +48,11 @@ if [ -n "$OWNER_ID" ]; then
     CMD_ARGS="$CMD_ARGS --owner $OWNER_ID"
 fi
 
+
+if [ -n "$LAVALINK_HOST" ]; then
+    echo "External Lavalink Host detected: $LAVALINK_HOST"
+fi
+
 echo "Starting Red-DiscordBot..."
 # shellcheck disable=SC2086
 exec redbot "$INSTANCE_NAME" $CMD_ARGS
