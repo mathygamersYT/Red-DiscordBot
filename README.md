@@ -106,6 +106,10 @@ Navigate to the server creation section and complete the **"Information"** tab:
 | **Node** | `BOTS` | (Based on your host configuration). |
 | **Primary Allocation** | `0.0.0.0:2333` | **Essential:** Map the server to port `2333`, which is the standard Lavalink port. |
 
+**Resource Recommendations:**
+- **Basic:** 150MB RAM, 1GB Disk Space. (Configure these limits within the Pelican Panel settings).
+- **With Audio (Lavalink):** 1GB RAM, 1GB Disk Space. (Configure these limits within the Pelican Panel settings).
+
 ### 2. Environment Configuration (Crucial Step)
 
 Navigate to the **"Environment Configuration"** tab. By setting these variables, you instruct Red-Bot to launch and utilize its own local Lavalink instance.
