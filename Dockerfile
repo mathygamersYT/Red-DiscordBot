@@ -10,21 +10,28 @@ RUN apt-get update && \
     wget \
     curl \
     ca-certificates \
-    procps && \
+    procps \
+    dos2unix && \
     rm -rf /var/lib/apt/lists/*
 
+# Instalamos RedBot
 RUN pip install --no-cache-dir Red-DiscordBot
 
-
+# Configuración del usuario 'container' para Pelican
 RUN useradd -d /home/container -m container
-USER container
 ENV USER=container HOME=/home/container
 ENV PATH="/home/container/.local/bin:${PATH}"
-ENV JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true"
 
 WORKDIR /home/container
 
 COPY . .
 
+USER root
+RUN chown -R container:container /home/container && \
+    dos2unix entrypoint.sh && \
+    chmod +x entrypoint.sh
 
-ENTRYPOINT ["/bin/bash", "entrypoint.sh"]
+USER container
+
+
+ENTRYPOINT ["/bin/bash", "/home/container/entrypoint.sh"]
